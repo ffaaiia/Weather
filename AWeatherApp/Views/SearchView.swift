@@ -7,14 +7,32 @@
 
 import SwiftUI
 
+import SwiftUI
 struct SearchView: View {
+    @StateObject var weatherVM: WeatherModelView
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct SearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView()
+        HStack {
+            Button {
+                weatherVM.getWeather()
+            } label: {
+                Image(systemName: "location.circle.fill").renderingMode(.original)
+                    .font(.system(size: 24))
+            }
+            
+            TextField("Search City", text: $weatherVM.searchedCityName, onCommit:  {
+                weatherVM.fetchWeatherByCityName()
+            })
+            .padding(5)
+            .background(Color(.quaternarySystemFill))
+            .cornerRadius(8)
+            Button {
+                weatherVM.fetchWeatherByCityName()
+            } label: {
+                Image(systemName: "magnifyingglass").renderingMode(.original)
+                    .font(.system(size: 24))
+            }
+        }
+        .padding(.horizontal)
     }
 }

@@ -5,16 +5,30 @@
 //  Created by Fay Anas Alshiban on 09/11/1443 AH.
 //
 
+
 import SwiftUI
 
-struct DeatilView: View {
+struct DetailView: View {
+    @StateObject var weatherVM: WeatherModelView
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-struct DeatilView_Previews: PreviewProvider {
-    static var previews: some View {
-        DeatilView()
+        if let current = weatherVM.current {
+            Divider()
+            VStack(alignment: .leading) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        CellDetail(title: "Sunrise", detail: "\(current.sunrise.hourMinuteAmPm(weatherVM.timeZoneOffset))")
+                        CellDetail(title: "Pressure", detail: "\(current.pressure) hPa")
+                        CellDetail(title: "Visibility", detail: "\(current.visibility/1000) Km")
+                    }
+                    Divider()
+                    VStack(alignment: .leading) {
+                        CellDetail(title: "Sunset", detail: "\(current.sunset.hourMinuteAmPm(weatherVM.timeZoneOffset))")
+                        CellDetail(title: "Wind", detail: "\(current.windSpeedWithDirection)")
+                        CellDetail(title: "UV Index", detail: current.uvi.roundedString(to: 0))
+                    }
+                }
+            }.padding(.horizontal)
+        }
     }
 }

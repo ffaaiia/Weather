@@ -6,3 +6,9 @@
 //
 
 import Foundation
+struct AppError: Identifiable {
+    
+    // MARK: - Properties
+    let id = UUID().uuidString
+    let errorString: String
+}

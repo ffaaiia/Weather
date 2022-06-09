@@ -11,7 +11,11 @@ import SwiftUI
 struct AWeatherAppApp: App {
     var body: some Scene {
         WindowGroup {
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [.cyan , Color("light cyan")]), startPoint: .topLeading, endPoint: .bottomLeading).ignoresSafeArea()
             ContentView()
+                }
+            }
         }
     }
-}
+
